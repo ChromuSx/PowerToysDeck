@@ -293,6 +293,55 @@
             line-height: 1.4;
         }
 
+        .empty-title {
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .empty-copy {
+            margin-top: 6px;
+        }
+
+        .empty-path {
+            margin-top: 10px;
+            padding: 7px 8px;
+            color: var(--text-dim);
+            background: #1f1f1f;
+            border: 1px solid var(--border-soft);
+            border-radius: 4px;
+            font-size: 10px;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
+            text-align: left;
+        }
+
+        .empty-actions {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .empty-link {
+            min-height: 28px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 10px;
+            color: #dff6ff;
+            background: var(--accent-bg);
+            border: 1px solid #357a9f;
+            border-radius: 4px;
+            text-decoration: none;
+            font: inherit;
+        }
+
+        .empty-link:hover {
+            background: #0a405f;
+        }
+
         .details {
             border: 1px solid var(--border-soft);
             border-radius: 6px;
@@ -551,8 +600,7 @@
                     catalog = message.payload.catalog || { items: [] };
                     settings = message.payload.settings || settings || {};
                     render();
-                    const version = catalog.version ? `PowerToys ${catalog.version}` : 'PowerToys settings loaded';
-                    status.textContent = `${version} - ${catalog.items.length} synced`;
+                    status.textContent = catalogStatusText();
                 }
             };
 
@@ -613,10 +661,7 @@
             }
 
             if (!items.length && !(selected && selectedItem)) {
-                const empty = document.createElement('div');
-                empty.className = 'empty';
-                empty.textContent = (catalog.items || []).length ? 'No commands match this filter.' : 'No PowerToys commands found.';
-                commandList.appendChild(empty);
+                commandList.appendChild(renderEmptyState());
             }
 
             for (const item of items) {
@@ -628,6 +673,22 @@
 
         function renderKeySetup(item) {
             if (!settings.itemId) {
+                if (powerToysUnavailable()) {
+                    keySetup.innerHTML = `
+                        <div class="key-setup-head">
+                            <div class="item-icon">PT</div>
+                            <div>
+                                <div class="details-title danger">PowerToys not found</div>
+                                <div class="details-subtitle">Install or open PowerToys once, then refresh.</div>
+                            </div>
+                        </div>
+                        <div class="key-setup-body">
+                            <div class="hint">No command can be selected until PowerToys settings are available.</div>
+                        </div>
+                    `;
+                    return;
+                }
+
                 keySetup.innerHTML = `
                     <div class="key-setup-head">
                         <div class="item-icon">PT</div>
@@ -644,6 +705,22 @@
             }
 
             if (!item) {
+                if (powerToysUnavailable()) {
+                    keySetup.innerHTML = `
+                        <div class="key-setup-head">
+                            <div class="item-icon">!</div>
+                            <div>
+                                <div class="details-title danger">PowerToys not found</div>
+                                <div class="details-subtitle">This key needs PowerToys settings to resolve its command.</div>
+                            </div>
+                        </div>
+                        <div class="key-setup-body">
+                            <div class="hint">Install or open PowerToys once, then refresh this catalog.</div>
+                        </div>
+                    `;
+                    return;
+                }
+
                 keySetup.innerHTML = `
                     <div class="key-setup-head">
                         <div class="item-icon">!</div>
@@ -680,6 +757,33 @@
                 </div>
             `;
             bindTitleControl(item);
+        }
+
+        function renderEmptyState() {
+            if (powerToysUnavailable()) {
+                const empty = document.createElement('div');
+                const settingsPath = catalog.availability?.settingsPath || '';
+                empty.className = 'empty';
+                empty.innerHTML = `
+                    <div class="empty-title">PowerToys not found</div>
+                    <div class="empty-copy">Install PowerToys or open it once, then refresh this catalog.</div>
+                    ${settingsPath ? `<div class="empty-path">${escapeHtml(settingsPath)}</div>` : ''}
+                    <div class="empty-actions">
+                        <a class="empty-link" href="${escapeHtml(powerToysInstallUrl())}" target="_blank" rel="noreferrer">Install PowerToys</a>
+                        <button class="small-button" type="button" data-refresh-catalog>Refresh</button>
+                    </div>
+                `;
+                const refresh = empty.querySelector('[data-refresh-catalog]');
+                if (refresh) {
+                    refresh.addEventListener('click', requestCatalog);
+                }
+                return empty;
+            }
+
+            const empty = document.createElement('div');
+            empty.className = 'empty';
+            empty.textContent = (catalog.items || []).length ? 'No commands match this filter.' : 'No PowerToys commands found.';
+            return empty;
         }
 
         function renderFilters() {
@@ -962,6 +1066,23 @@
                     <div class="kv-value">${escapeHtml(value)}</div>
                 </div>
             `;
+        }
+
+        function catalogStatusText() {
+            if (powerToysUnavailable()) {
+                return 'PowerToys not found';
+            }
+
+            const version = catalog.version ? `PowerToys ${catalog.version}` : 'PowerToys settings loaded';
+            return `${version} - ${(catalog.items || []).length} synced`;
+        }
+
+        function powerToysUnavailable() {
+            return catalog.availability?.status === 'not-found';
+        }
+
+        function powerToysInstallUrl() {
+            return catalog.availability?.installUrl || 'https://github.com/microsoft/PowerToys/releases';
         }
 
         function isReady() {

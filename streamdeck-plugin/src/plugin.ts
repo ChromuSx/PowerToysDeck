@@ -123,7 +123,11 @@ async function executeConfiguredItem(context: string, settings: ActionSettings) 
 
   const item = findCatalogItem(catalog, settings.itemId);
   if (!item) {
-    await showMissing(context);
+    if (isPowerToysUnavailable()) {
+      await showPowerToysUnavailable(context, true);
+    } else {
+      await showMissing(context);
+    }
     return;
   }
 
@@ -207,6 +211,11 @@ async function refreshContext(context: string) {
   const item = findCatalogItem(catalog, settings.itemId);
 
   if (!settings.itemId) {
+    if (isPowerToysUnavailable()) {
+      await showPowerToysUnavailable(context, false);
+      return;
+    }
+
     setState(context, 0);
     setTitle(context, 'Select\nPowerToys');
     await setImage(context, fallbackIconPath());
@@ -214,7 +223,11 @@ async function refreshContext(context: string) {
   }
 
   if (!item) {
-    await showMissing(context);
+    if (isPowerToysUnavailable()) {
+      await showPowerToysUnavailable(context, false);
+    } else {
+      await showMissing(context);
+    }
     return;
   }
 
@@ -228,6 +241,19 @@ async function showMissing(context: string) {
   setTitle(context, 'Missing');
   await setImage(context, fallbackIconPath());
   showAlert(context);
+}
+
+async function showPowerToysUnavailable(context: string, alert: boolean) {
+  setState(context, 2);
+  setTitle(context, 'PowerToys\nmissing');
+  await setImage(context, fallbackIconPath());
+  if (alert) {
+    showAlert(context);
+  }
+}
+
+function isPowerToysUnavailable(): boolean {
+  return catalog.availability?.status === 'not-found';
 }
 
 function sendCatalogToPropertyInspector(context: string) {

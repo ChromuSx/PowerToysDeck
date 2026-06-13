@@ -28,10 +28,20 @@ export interface PowerToysItem {
   execution: PowerToysExecution;
 }
 
+export type PowerToysAvailabilityStatus = 'ready' | 'not-found';
+
+export interface PowerToysAvailability {
+  status: PowerToysAvailabilityStatus;
+  settingsPath: string;
+  message: string;
+  installUrl: string;
+}
+
 export interface PowerToysCatalog {
   generatedAt: string;
   rootPath: string;
   version?: string;
+  availability: PowerToysAvailability;
   watchedFiles: string[];
   items: PowerToysItem[];
 }

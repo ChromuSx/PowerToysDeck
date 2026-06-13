@@ -122,6 +122,12 @@ Primary locations:
 
 ## Troubleshooting
 
+### Property Inspector shows PowerToys not found
+
+- Install Microsoft PowerToys or open it once after installation.
+- Confirm `%LOCALAPPDATA%\Microsoft\PowerToys\settings.json` exists for the current Windows user.
+- Press refresh in the Property Inspector.
+
 ### Property Inspector shows no commands
 
 - Open PowerToys once so settings files exist.

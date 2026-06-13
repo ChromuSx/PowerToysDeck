@@ -76,6 +76,8 @@ const HOTKEY_SPECS: ActionSpec[] = [
   { id: 'hotkey:ZoomIt:record', title: 'ZoomIt Record', group: 'PowerToys Hotkeys', moduleName: 'ZoomIt', hotkeyPath: ['properties', 'record-toggle-key'], eventName: EVENTS.zoomItRecord },
 ];
 
+const POWERTOYS_INSTALL_URL = 'https://github.com/microsoft/PowerToys/releases';
+
 export function buildPowerToysCatalog(options: BuildCatalogOptions = {}): PowerToysCatalog {
   const localAppData = options.localAppData || process.env.LOCALAPPDATA || path.join(os.homedir(), 'AppData', 'Local');
   const rootPath = options.powertoysRoot || path.join(localAppData, 'Microsoft', 'PowerToys');
@@ -128,6 +130,7 @@ export function buildPowerToysCatalog(options: BuildCatalogOptions = {}): PowerT
     generatedAt: (options.now || new Date()).toISOString(),
     rootPath,
     version: typeof generalSettings?.powertoys_version === 'string' ? generalSettings.powertoys_version : undefined,
+    availability: powerToysAvailability(generalSettings, generalPath),
     watchedFiles: [...watchedFiles].sort(),
     items: dedupeItems(items).sort(compareItems),
   };
@@ -342,6 +345,24 @@ function isModuleEnabled(generalSettings: any, moduleName: string): boolean {
   if (moduleName === 'General') return !!generalSettings;
   if (!generalSettings?.enabled || typeof generalSettings.enabled !== 'object') return false;
   return generalSettings.enabled[moduleName] !== false;
+}
+
+function powerToysAvailability(generalSettings: any, settingsPath: string): PowerToysCatalog['availability'] {
+  if (generalSettings) {
+    return {
+      status: 'ready',
+      settingsPath,
+      message: 'PowerToys settings loaded.',
+      installUrl: POWERTOYS_INSTALL_URL,
+    };
+  }
+
+  return {
+    status: 'not-found',
+    settingsPath,
+    message: 'PowerToys settings were not found. Install or open PowerToys once, then refresh.',
+    installUrl: POWERTOYS_INSTALL_URL,
+  };
 }
 
 function readJson(filePath: string): any | undefined {

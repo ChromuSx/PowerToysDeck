@@ -202,11 +202,18 @@ See [streamdeck-plugin/README.md](streamdeck-plugin/README.md) for plugin-specif
 ## Important Notes
 
 - Stream Deck cannot automatically create new physical keys when PowerToys adds commands. Existing configured keys update automatically.
+- If PowerToys settings are not found, the Property Inspector shows a `PowerToys not found` state with the settings path checked and an install link.
 - The native Stream Deck title field is hidden because the legacy SDK can update rendered titles with `setTitle`, but cannot prefill the native title input.
 - Power Toybox Deck reads only local Microsoft PowerToys settings for the current Windows user.
 - Commands execute with the same user permissions as Stream Deck.
 
 ## Troubleshooting
+
+### PowerToys not found
+
+- Install Microsoft PowerToys or open it once after installation.
+- Confirm `%LOCALAPPDATA%\Microsoft\PowerToys\settings.json` exists for the current Windows user.
+- Press the refresh button in the Property Inspector.
 
 ### No PowerToys commands found
 

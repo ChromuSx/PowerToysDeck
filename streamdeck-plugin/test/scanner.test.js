@@ -73,6 +73,8 @@ const catalog = buildPowerToysCatalog({
 });
 
 assert.strictEqual(catalog.version, 'v.test');
+assert.strictEqual(catalog.availability.status, 'ready');
+assert.strictEqual(catalog.availability.settingsPath, path.join(powertoysRoot, 'settings.json'));
 
 const colorPicker = findCatalogItem(catalog, 'quick:ColorPicker');
 assert.ok(colorPicker);
@@ -194,6 +196,9 @@ const missingGeneralCatalog = buildPowerToysCatalog({
 });
 
 assert.strictEqual(missingGeneralCatalog.items.length, 0);
+assert.strictEqual(missingGeneralCatalog.availability.status, 'not-found');
+assert.strictEqual(missingGeneralCatalog.availability.settingsPath, path.join(missingGeneralPowerToysRoot, 'settings.json'));
+assert.match(missingGeneralCatalog.availability.message, /not found/i);
 
 fs.rmSync(tempRoot, { recursive: true, force: true });
 fs.rmSync(missingGeneralRoot, { recursive: true, force: true });
