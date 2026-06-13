@@ -1,7 +1,7 @@
 {
-  "name": "com.chromusx.powertoys-deck",
+  "name": "com.chromusx.power-toybox-deck",
   "version": "0.1.0",
-  "description": "Stream Deck plugin that mirrors Microsoft PowerToys shortcuts and quick actions",
+  "description": "Unofficial Stream Deck plugin compatible with Microsoft PowerToys shortcuts and quick actions",
   "author": "ChromuSx",
   "license": "MIT",
   "main": "src/plugin.ts",

@@ -16,7 +16,7 @@ const executionLock = new Map<string, boolean>();
 const watchedFiles = new Set<string>();
 const imageCache = new Map<string, string>();
 
-const pluginUUID = 'com.chromusx.powertoys-deck';
+const pluginUUID = 'com.chromusx.power-toybox-deck';
 const commandActionUUID = `${pluginUUID}.command`;
 
 function connectElgatoStreamDeckSocket(
@@ -29,7 +29,7 @@ function connectElgatoStreamDeckSocket(
 
   ws.on('open', () => {
     ws.send(JSON.stringify({ event: inRegisterEvent, uuid: inPluginUUID }));
-    logMessage('PowerToys Deck connected');
+    logMessage('Power Toybox Deck connected');
     refreshCatalogNow();
   });
 

@@ -4,7 +4,7 @@ const os = require('os');
 const path = require('path');
 const { buildPowerToysCatalog, findCatalogItem } = require('../bin/powertoys-scanner');
 
-const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'powertoys-deck-'));
+const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'power-toybox-deck-'));
 const localAppData = path.join(tempRoot, 'LocalAppData');
 const powertoysRoot = path.join(localAppData, 'Microsoft', 'PowerToys');
 const cmdPalSettingsPath = path.join(tempRoot, 'CmdPal', 'settings.json');
@@ -161,7 +161,7 @@ const duplicateTargetMappings = duplicateCatalog.items.filter((item) => item.id.
 assert.strictEqual(duplicateTargetMappings.length, 2);
 assert.strictEqual(new Set(duplicateTargetMappings.map((item) => item.id)).size, 2);
 
-const missingGeneralRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'powertoys-deck-missing-general-'));
+const missingGeneralRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'power-toybox-deck-missing-general-'));
 const missingGeneralLocalAppData = path.join(missingGeneralRoot, 'LocalAppData');
 const missingGeneralPowerToysRoot = path.join(missingGeneralLocalAppData, 'Microsoft', 'PowerToys');
 const missingGeneralCmdPalSettingsPath = path.join(missingGeneralRoot, 'CmdPal', 'settings.json');

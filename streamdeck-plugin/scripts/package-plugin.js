@@ -3,8 +3,8 @@ const path = require('path');
 const AdmZip = require('adm-zip');
 const { validatePlugin } = require('./validate-plugin');
 
-const pluginDir = 'com.chromusx.powertoys-deck.sdPlugin';
-const outputFile = 'com.chromusx.powertoys-deck.streamDeckPlugin';
+const pluginDir = 'com.chromusx.power-toybox-deck.sdPlugin';
+const outputFile = 'com.chromusx.power-toybox-deck.streamDeckPlugin';
 
 if (!fs.existsSync(pluginDir)) {
   console.error(`Error: ${pluginDir} directory not found. Run npm run build first.`);

@@ -1,11 +1,11 @@
 {
   "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
-  "Name": "PowerToys Deck",
+  "Name": "Power Toybox Deck",
   "Version": "0.1.0.0",
   "Author": "ChromuSx",
-  "Description": "Launch Microsoft PowerToys utilities, Run aliases, Command Palette shortcuts, and Keyboard Manager mappings from Stream Deck with automatic synchronization.",
-  "URL": "https://github.com/ChromuSx/PowerToysDeck",
-  "SupportURL": "https://github.com/ChromuSx/PowerToysDeck/issues",
+  "Description": "Unofficial Stream Deck plugin compatible with Microsoft PowerToys utilities, Run aliases, Command Palette shortcuts, and Keyboard Manager mappings.",
+  "URL": "https://github.com/ChromuSx/PowerToyboxDeck",
+  "SupportURL": "https://github.com/ChromuSx/PowerToyboxDeck/issues",
   "Icon": "imgs/plugin-icon",
   "CodePath": "bin/plugin.js",
   "PropertyInspectorPath": "ui/property-inspector.html",
@@ -22,13 +22,13 @@
   "Software": {
     "MinimumVersion": "6.9"
   },
-  "UUID": "com.chromusx.powertoys-deck",
-  "Category": "PowerToys Deck",
+  "UUID": "com.chromusx.power-toybox-deck",
+  "Category": "Power Toybox Deck",
   "CategoryIcon": "imgs/category-icon",
   "Actions": [
     {
-      "Name": "PowerToys Command",
-      "UUID": "com.chromusx.powertoys-deck.command",
+      "Name": "Toybox Command",
+      "UUID": "com.chromusx.power-toybox-deck.command",
       "Icon": "imgs/action-icon",
       "Tooltip": "Launch a PowerToys action synchronized from local PowerToys settings",
       "States": [

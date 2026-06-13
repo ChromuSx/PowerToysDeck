@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const pluginDir = 'com.chromusx.powertoys-deck.sdPlugin';
+const pluginDir = 'com.chromusx.power-toybox-deck.sdPlugin';
 
 fs.rmSync(pluginDir, { recursive: true, force: true });
 fs.mkdirSync(pluginDir, { recursive: true });

@@ -1,7 +1,7 @@
-# PowerToys Deck
+# Power Toybox Deck
 
 <div align="center">
-  <img src="streamdeck-plugin/imgs/plugin-icon.png" alt="PowerToys Deck" width="160">
+  <img src="streamdeck-plugin/imgs/plugin-icon.png" alt="Power Toybox Deck" width="160">
 </div>
 
 <div align="center">
@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/platform-Windows-blue?style=for-the-badge" alt="Platform">
   <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="MIT License">
   <img src="https://img.shields.io/badge/version-0.1.0-brightgreen?style=for-the-badge" alt="Version">
-  <img src="https://img.shields.io/github/stars/ChromuSx/PowerToysDeck?style=for-the-badge" alt="Stars">
+  <img src="https://img.shields.io/github/stars/ChromuSx/PowerToyboxDeck?style=for-the-badge" alt="Stars">
 </p>
 
 <p align="center">
@@ -25,12 +25,12 @@
 </p>
 
 <p align="center">
-  <strong>PowerToys Deck is a Stream Deck plugin that mirrors your local Microsoft PowerToys setup. Pick PowerToys utilities, global shortcuts, Run aliases, Command Palette commands, and Keyboard Manager mappings from a synchronized Property Inspector.</strong>
+  <strong>Power Toybox Deck is an unofficial Stream Deck plugin compatible with Microsoft PowerToys. Pick utilities, global shortcuts, Run aliases, Command Palette commands, and Keyboard Manager mappings from a synchronized Property Inspector.</strong>
 </p>
 
 ## Stream Deck Plugin
 
-PowerToys Deck reads PowerToys settings from the current Windows user profile and keeps configured Stream Deck keys synchronized when PowerToys shortcuts, enabled modules, Run plugins, Command Palette aliases, or Keyboard Manager mappings change.
+Power Toybox Deck reads Microsoft PowerToys settings from the current Windows user profile and keeps configured Stream Deck keys synchronized when PowerToys shortcuts, enabled modules, Run plugins, Command Palette aliases, or Keyboard Manager mappings change.
 
 The plugin stores a stable command ID per key instead of copying the current shortcut. When PowerToys changes, Stream Deck keys resolve the latest title, icon, hotkey, alias, and execution behavior automatically.
 
@@ -75,14 +75,14 @@ npm run package
 Then double-click:
 
 ```text
-streamdeck-plugin/com.chromusx.powertoys-deck.streamDeckPlugin
+streamdeck-plugin/com.chromusx.power-toybox-deck.streamDeckPlugin
 ```
 
 ## Quick Start
 
 1. Install Microsoft PowerToys and configure the modules you use.
-2. Build and install PowerToys Deck.
-3. Drag `PowerToys Command` to a Stream Deck key.
+2. Build and install Power Toybox Deck.
+3. Drag `Toybox Command` to a Stream Deck key.
 4. Choose a command in the Property Inspector.
 5. Optionally adjust `Show title` or the custom key title.
 6. Press the key to run the synchronized PowerToys action.
@@ -178,7 +178,7 @@ See [streamdeck-plugin/README.md](streamdeck-plugin/README.md) for plugin-specif
 
 - Stream Deck cannot automatically create new physical keys when PowerToys adds commands. Existing configured keys update automatically.
 - The native Stream Deck title field is hidden because the legacy SDK can update rendered titles with `setTitle`, but cannot prefill the native title input.
-- PowerToys Deck reads only local PowerToys settings for the current Windows user.
+- Power Toybox Deck reads only local Microsoft PowerToys settings for the current Windows user.
 - Commands execute with the same user permissions as Stream Deck.
 
 ## Troubleshooting

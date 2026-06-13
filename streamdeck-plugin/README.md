@@ -1,6 +1,6 @@
-# PowerToys Deck Stream Deck Plugin
+# Power Toybox Deck Stream Deck Plugin
 
-A Stream Deck plugin that mirrors Microsoft PowerToys commands from the current Windows user profile.
+An unofficial Stream Deck plugin compatible with Microsoft PowerToys that mirrors commands from the current Windows user profile.
 
 ## Features
 
@@ -14,7 +14,7 @@ A Stream Deck plugin that mirrors Microsoft PowerToys commands from the current 
 
 ### Stream Deck Action
 
-1. **PowerToys Command** - A single configurable action that resolves the latest command behavior at runtime.
+1. **Toybox Command** - A single configurable action that resolves the latest command behavior at runtime.
 
 ### User Experience
 
@@ -41,7 +41,7 @@ The packaged plugin includes `PowerToysBridge.exe` as a self-contained native he
 Releases are not published yet. For now, build locally and double-click the generated:
 
 ```text
-com.chromusx.powertoys-deck.streamDeckPlugin
+com.chromusx.power-toybox-deck.streamDeckPlugin
 ```
 
 ### For Developers
@@ -55,7 +55,7 @@ npm run package
 
 ## Usage
 
-1. Drag `PowerToys Command` from Stream Deck actions to a key.
+1. Drag `Toybox Command` from Stream Deck actions to a key.
 2. Use the Property Inspector to select a PowerToys command.
 3. Adjust `Show title` or the custom key title if needed.
 4. Press the Stream Deck key.
