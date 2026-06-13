@@ -1,0 +1,29 @@
+{
+  "name": "power-toybox-deck-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Marketplace screenshots and promo video for the Power Toybox Deck Stream Deck plugin",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render PowerToyboxPromo out/promo.mp4 --crf=24",
+    "thumbnail": "remotion still PowerToyboxThumbnail out/promo-thumbnail.png",
+    "hero": "remotion still PowerToyboxHero out/gallery-hero.png",
+    "property": "remotion still PowerToyboxPropertyInspector out/gallery-property-inspector.png",
+    "sync": "remotion still PowerToyboxSync out/gallery-sync.png",
+    "inspector:quick": "remotion still PowerToyboxInspectorQuickAccess out/inspector-quick-access.png",
+    "inspector:run": "remotion still PowerToyboxInspectorRun out/inspector-run.png",
+    "inspector:keyboard": "remotion still PowerToyboxInspectorKeyboard out/inspector-keyboard.png",
+    "stills": "npm run thumbnail && npm run hero && npm run property && npm run sync && npm run inspector:quick && npm run inspector:run && npm run inspector:keyboard"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "typescript": "^5.4.5"
+  }
+}
+
