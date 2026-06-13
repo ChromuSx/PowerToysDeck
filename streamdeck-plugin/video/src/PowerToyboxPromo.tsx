@@ -997,6 +997,51 @@ const FeatureCard: React.FC<{
   );
 };
 
+const smoothStep = (value: number): number => {
+  const clamped = Math.max(0, Math.min(1, value));
+  return clamped * clamped * (3 - 2 * clamped);
+};
+
+const SceneTransition: React.FC<{
+  children: React.ReactNode;
+  durationInFrames: number;
+  fadeInFrames?: number;
+  fadeOutFrames?: number;
+  slide?: number;
+}> = ({ children, durationInFrames, fadeInFrames = 34, fadeOutFrames = 42, slide = 18 }) => {
+  const frame = useCurrentFrame();
+  const fadeIn =
+    fadeInFrames <= 0
+      ? 1
+      : interpolate(frame, [0, fadeInFrames], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+  const fadeOut =
+    fadeOutFrames <= 0
+      ? 1
+      : interpolate(frame, [durationInFrames - fadeOutFrames, durationInFrames], [1, 0], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+  const enter = smoothStep(fadeIn);
+  const exit = smoothStep(fadeOut);
+  const opacity = Math.min(enter, exit);
+  const y = (1 - enter) * slide - (1 - exit) * slide;
+  const scale = 0.992 + enter * 0.008;
+
+  return (
+    <AbsoluteFill
+      style={{
+        opacity,
+        transform: `translateY(${y}px) scale(${scale})`,
+      }}
+    >
+      {children}
+    </AbsoluteFill>
+  );
+};
+
 const SceneHero: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -1072,12 +1117,13 @@ const SceneSync: React.FC = () => {
   );
 };
 
-const SceneCatalog: React.FC = () => {
-  const frame = useCurrentFrame();
-  const showRun = frame < 230;
+const CatalogShot: React.FC<{
+  showRun: boolean;
+  style?: React.CSSProperties;
+}> = ({ showRun, style }) => {
   const shotItems = showRun ? runCommands : keyboardCommands;
   return (
-    <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", fontFamily: FONT }}>
+    <AbsoluteFill style={{ alignItems: "center", justifyContent: "center", fontFamily: FONT, ...style }}>
       <div style={{ display: "flex", alignItems: "center", gap: 74 }}>
         <PropertyInspector
           items={shotItems}
@@ -1120,6 +1166,35 @@ const SceneCatalog: React.FC = () => {
           </div>
         </div>
       </div>
+    </AbsoluteFill>
+  );
+};
+
+const SceneCatalog: React.FC = () => {
+  const frame = useCurrentFrame();
+  const switchProgress = smoothStep(
+    interpolate(frame, [208, 252], [0, 1], {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }),
+  );
+
+  return (
+    <AbsoluteFill>
+      <CatalogShot
+        showRun
+        style={{
+          opacity: 1 - switchProgress,
+          transform: `translateX(${-28 * switchProgress}px)`,
+        }}
+      />
+      <CatalogShot
+        showRun={false}
+        style={{
+          opacity: switchProgress,
+          transform: `translateX(${28 * (1 - switchProgress)}px)`,
+        }}
+      />
     </AbsoluteFill>
   );
 };
@@ -1186,23 +1261,35 @@ export const PowerToyboxPromo: React.FC = () => {
     <AbsoluteFill style={{ background: COLORS.bg }}>
       <Background />
       <Audio src={staticFile("powertoybox-mixkit-close-up.mp3")} volume={musicVolume} />
-      <Sequence from={0} durationInFrames={320}>
-        <SceneHero />
+      <Sequence from={0} durationInFrames={340}>
+        <SceneTransition durationInFrames={340} fadeInFrames={0} fadeOutFrames={40}>
+          <SceneHero />
+        </SceneTransition>
       </Sequence>
       <Sequence from={300} durationInFrames={480}>
-        <SceneSetup />
+        <SceneTransition durationInFrames={480} fadeInFrames={40} fadeOutFrames={44}>
+          <SceneSetup />
+        </SceneTransition>
       </Sequence>
       <Sequence from={740} durationInFrames={470}>
-        <SceneSync />
+        <SceneTransition durationInFrames={470} fadeInFrames={40} fadeOutFrames={50}>
+          <SceneSync />
+        </SceneTransition>
       </Sequence>
       <Sequence from={1160} durationInFrames={520}>
-        <SceneCatalog />
+        <SceneTransition durationInFrames={520} fadeInFrames={46} fadeOutFrames={44}>
+          <SceneCatalog />
+        </SceneTransition>
       </Sequence>
-      <Sequence from={1640} durationInFrames={260}>
-        <SceneFeatures />
+      <Sequence from={1640} durationInFrames={280}>
+        <SceneTransition durationInFrames={280} fadeInFrames={40} fadeOutFrames={44}>
+          <SceneFeatures />
+        </SceneTransition>
       </Sequence>
       <Sequence from={1880} durationInFrames={220}>
-        <Closing />
+        <SceneTransition durationInFrames={220} fadeInFrames={42} fadeOutFrames={28}>
+          <Closing />
+        </SceneTransition>
       </Sequence>
     </AbsoluteFill>
   );
