@@ -34,6 +34,31 @@ Power Toybox Deck reads Microsoft PowerToys settings from the current Windows us
 
 The plugin stores a stable command ID per key instead of copying the current shortcut. When PowerToys changes, Stream Deck keys resolve the latest title, icon, hotkey, alias, and execution behavior automatically.
 
+https://github.com/user-attachments/assets/9ddee4ce-ded8-4b6c-9517-dab0e932bee0
+
+<sub>▶ Press play for sound. Not rendering (e.g. outside GitHub)? <a href="https://github.com/user-attachments/assets/9ddee4ce-ded8-4b6c-9517-dab0e932bee0">Download the MP4</a>.</sub>
+
+<div align="center">
+  <img src="streamdeck-plugin/marketplace/promo-thumbnail.png" alt="Power Toybox Deck keeps Stream Deck keys synchronized with PowerToys" width="900">
+</div>
+
+<div align="center">
+  <img src="streamdeck-plugin/marketplace/gallery-hero.png" alt="Power Toybox Deck synchronized PowerToys commands on Stream Deck" width="49%">
+  <img src="streamdeck-plugin/marketplace/gallery-property-inspector.png" alt="Power Toybox Deck PowerToys-like property inspector" width="49%">
+</div>
+
+<div align="center">
+  <img src="streamdeck-plugin/marketplace/gallery-sync.png" alt="Power Toybox Deck updates key titles and shortcuts when PowerToys settings change" width="900">
+</div>
+
+### Real Property Inspector Screenshots
+
+<div align="center">
+  <img src="streamdeck-plugin/marketplace/inspector-quick-access.png" alt="Power Toybox Deck real property inspector for Quick Access utilities" width="31%">
+  <img src="streamdeck-plugin/marketplace/inspector-run.png" alt="Power Toybox Deck real property inspector for PowerToys Run aliases" width="31%">
+  <img src="streamdeck-plugin/marketplace/inspector-keyboard.png" alt="Power Toybox Deck real property inspector for Keyboard Manager mappings" width="31%">
+</div>
+
 ## Features
 
 **PowerToys synchronization**
