@@ -1,0 +1,27 @@
+{
+  "name": "com.chromusx.powertoys-deck",
+  "version": "0.1.0",
+  "description": "Stream Deck plugin that mirrors Microsoft PowerToys shortcuts and quick actions",
+  "author": "ChromuSx",
+  "license": "MIT",
+  "main": "src/plugin.ts",
+  "scripts": {
+    "build": "npm run build:bridge && npm run build:ts && node scripts/copy-assets.js",
+    "build:ts": "node node_modules/typescript/bin/tsc",
+    "build:bridge": "dotnet publish native/PowerToysBridge/PowerToysBridge.csproj -c Release -r win-x64 --self-contained true",
+    "watch": "node node_modules/typescript/bin/tsc --watch",
+    "test": "npm run build:ts && node scripts/run-tests.js",
+    "validate": "node scripts/validate-plugin.js",
+    "package": "node scripts/package-plugin.js",
+    "build:package": "npm run build && npm run package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/ws": "^8.18.1",
+    "adm-zip": "^0.5.16",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  }
+}

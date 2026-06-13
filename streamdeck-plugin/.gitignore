@@ -1,0 +1,7 @@
+bin/
+com.chromusx.powertoys-deck.sdPlugin/
+com.chromusx.powertoys-deck.streamDeckPlugin
+node_modules/
+native/**/bin/
+native/**/obj/
+
